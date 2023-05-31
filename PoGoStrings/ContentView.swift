@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import UIKit
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -18,7 +19,7 @@ struct ContentView: View {
     
     @State var newString: String
     @State var actionSheetVisible = false
-    
+    @State var alertVisible = false
     var body: some View {
         VStack{
             Text("PoGo Strings")
@@ -29,6 +30,18 @@ struct ContentView: View {
                         Spacer()
                         Button("Copy") {
                             //TODO copy to clipboard
+                            let pasteboard = UIPasteboard.general
+                            pasteboard.string = item.item
+                            alertVisible = true
+                                
+                        }.alert(isPresented: $alertVisible) {
+                            Alert(title: Text("Copied to Clipboard"),
+                                  message: Text(item.item!),
+                                  primaryButton: .default(Text("OK"), action: {
+                                  }),
+                                  secondaryButton: .cancel(Text("Cancel"), action: {
+                                  })
+                            )
                         }
                     }
                 }
