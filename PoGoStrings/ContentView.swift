@@ -15,7 +15,10 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.item, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-
+    
+    @State var newString: String
+    @State var actionSheetVisible = false
+    
     var body: some View {
         VStack{
             Text("PoGo Strings")
@@ -31,13 +34,27 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
+            Spacer()
+            Button("Add") {
+                actionSheetVisible = true
+            }
+            .padding()
+            .sheet(isPresented: $actionSheetVisible) {
+                VStack{
+                    TextField("Placeholder", text: $newString)
+                    Button("Add New"){
+                        addItem(newString: newString)
+                    }
+                }.presentationDetents([.medium])
+            }
         }
     }
 
-    private func addItem() {
+    private func addItem(newString: String) {
         withAnimation {
             let newItem = Item(context: viewContext)
-            newItem.item = "Hello World"
+            
+            newItem.item = newString
 
             do {
                 try viewContext.save()
@@ -75,6 +92,6 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView(newString: "Hello world").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

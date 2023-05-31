@@ -13,7 +13,7 @@ struct PoGoStringsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(newString: "Hello World")
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
