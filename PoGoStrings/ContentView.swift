@@ -20,16 +20,18 @@ struct ContentView: View {
     @State var newString: String
     @State var actionSheetVisible = false
     @State var alertVisible = false
+    
+    
     var body: some View {
         VStack{
             Text("PoGo Strings")
-            List {
+                .font(.title).padding(.top, 10.0)
+            List{
                 ForEach(items) { item in
                     HStack{
-                        Text(item.item!)
+                        Text(item.item!).padding(.leading, 5)
                         Spacer()
                         Button("Copy") {
-                            //TODO copy to clipboard
                             let pasteboard = UIPasteboard.general
                             pasteboard.string = item.item
                             alertVisible = true
@@ -42,24 +44,22 @@ struct ContentView: View {
                                   secondaryButton: .cancel(Text("Cancel"), action: {
                                   })
                             )
-                        }
+                        }.buttonStyle(.bordered)
                     }
                 }
                 .onDelete(perform: deleteItems)
-            }
+            }.scrollContentBackground(/*@START_MENU_TOKEN@*/.automatic/*@END_MENU_TOKEN@*/).scrollDismissesKeyboard(/*@START_MENU_TOKEN@*/.automatic/*@END_MENU_TOKEN@*/).listStyle(PlainListStyle())
             Spacer()
-            Button("Add") {
-                actionSheetVisible = true
+            HStack{
+                TextField("Placeholder", text: $newString)
+                    .padding(.leading, 5.0).textFieldStyle(.roundedBorder)
+                Spacer()
+                Button("Add New"){
+                    addItem(newString: newString)
+                }.padding(.trailing, 5.0).buttonStyle(.bordered)
+                
             }
-            .padding()
-            .sheet(isPresented: $actionSheetVisible) {
-                VStack{
-                    TextField("Placeholder", text: $newString)
-                    Button("Add New"){
-                        addItem(newString: newString)
-                    }
-                }.presentationDetents([.medium])
-            }
+            .padding(.bottom, 20.0)
         }
     }
 
