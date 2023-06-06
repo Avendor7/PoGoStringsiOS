@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreData
-import UIKit
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -17,10 +16,10 @@ struct ContentView: View {
         animation: .default)
     private var items: FetchedResults<Item>
     
-    @State var newString: String
+    @State var newString: String = String()
     @State var actionSheetVisible = false
     @State var alertVisible = false
-    
+    @FocusState private var addNewFocused: Bool
     
     var body: some View {
         VStack{
@@ -35,15 +34,6 @@ struct ContentView: View {
                             let pasteboard = UIPasteboard.general
                             pasteboard.string = item.item
                             alertVisible = true
-                                
-                        }.alert(isPresented: $alertVisible) {
-                            Alert(title: Text("Copied to Clipboard"),
-                                  message: Text(item.item!),
-                                  primaryButton: .default(Text("OK"), action: {
-                                  }),
-                                  secondaryButton: .cancel(Text("Cancel"), action: {
-                                  })
-                            )
                         }.buttonStyle(.bordered)
                     }
                 }
@@ -51,11 +41,13 @@ struct ContentView: View {
             }.scrollContentBackground(/*@START_MENU_TOKEN@*/.automatic/*@END_MENU_TOKEN@*/).scrollDismissesKeyboard(/*@START_MENU_TOKEN@*/.automatic/*@END_MENU_TOKEN@*/).listStyle(PlainListStyle())
             Spacer()
             HStack{
-                TextField("Placeholder", text: $newString)
-                    .padding(.leading, 5.0).textFieldStyle(.roundedBorder)
+                TextField("New String", text: $newString)
+                    .padding(.leading, 5.0).textFieldStyle(.roundedBorder).focused($addNewFocused)
                 Spacer()
                 Button("Add New"){
                     addItem(newString: newString)
+                    newString = " "
+                    addNewFocused = false
                 }.padding(.trailing, 5.0).buttonStyle(.bordered)
                 
             }
@@ -105,6 +97,6 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(newString: "Hello world").environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
