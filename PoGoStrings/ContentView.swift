@@ -18,7 +18,6 @@ struct ContentView: View {
     
     @State var newString: String = String()
     @State var actionSheetVisible = false
-    @State var alertVisible = false
     @FocusState private var addNewFocused: Bool
     
     var body: some View {
@@ -33,7 +32,6 @@ struct ContentView: View {
                         Button("Copy") {
                             let pasteboard = UIPasteboard.general
                             pasteboard.string = item.item
-                            alertVisible = true
                         }.buttonStyle(.bordered)
                     }
                 }
