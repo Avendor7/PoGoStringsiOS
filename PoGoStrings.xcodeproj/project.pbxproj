@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -109,7 +109,6 @@
 				};
 			};
 			buildConfigurationList = DCF2DFA92A26A9970084FE9B /* Build configuration list for PBXProject "PoGoStrings" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -117,6 +116,7 @@
 				Base,
 			);
 			mainGroup = DCF2DFA52A26A9970084FE9B;
+			preferredProjectObjectVersion = 73;
 			productRefGroup = DCF2DFAF2A26A9980084FE9B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -291,7 +291,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ca.avendor.PoGoStrings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -320,7 +320,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ca.avendor.PoGoStrings;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
